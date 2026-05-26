@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContatoController;
+use App\Http\Controllers\TipoContatosController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,6 +18,17 @@ Route::resource('contatos', ContatoController::class)->middleware(['auth','verif
     'update' => 'contatos.update',
     'destroy' => 'contatos.destroy',
 ]);
+
+Route::resource('tipo-contatos', TipoContatosController::class)->middleware(['auth','verified'])->names([
+    'index' => 'tipo-contatos.index',
+    'create' => 'tipo-contatos.create',
+    'store' => 'tipo-contatos.store',
+    'show' => 'tipo-contatos.show',
+    'edit' => 'tipo-contatos.edit',
+    'update' => 'tipo-contatos.update',
+    'destroy' => 'tipo-contatos.destroy',
+]);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

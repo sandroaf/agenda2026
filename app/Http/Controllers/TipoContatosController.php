@@ -52,7 +52,9 @@ class TipoContatosController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $tipoContato = TipoContato::findOrFail($id);
+
+        return view('tipoContatos.show', compact('tipoContato'));
     }
 
     /**

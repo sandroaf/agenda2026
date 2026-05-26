@@ -1,7 +1,7 @@
 <script>
-    function confirmDelete(contatoId) {
-        if (confirm('Tem certeza que deseja excluir este tipo de contato?')) {
-            document.getElementById('deleteform-' + tipoContatoId).submit();
+    function confirmDelete(tiposcontatoId) {
+        if (confirm('Tem certeza que deseja excluir este tipo de contato: '+ tiposcontatoId+"?")) {
+            document.getElementById('deleteform-' + tiposcontatoId).submit();
         }
     }
 </script>

@@ -14,6 +14,14 @@
                     <li>Nome: {{ $tipoContato->nome }}</li>
                     <li>Descrição: {{ $tipoContato->descricao }}</li>
                 </ul>
+                <h3 class="font-semibold text-lg text-gray-800 leading-tight mt-4">
+                    Contatos relacionados:
+                </h3>
+                <ul>
+                    @foreach ($contatos as $contato)
+                        <li>{{ $contato->nome }} ({{ $contato->email }})</li>
+                    @endforeach
+                </ul>
                 <br>
                 <a href="{{ route('tipo-contatos.index') }}">Voltar para a lista de tipos de contatos</a>
                 </div>

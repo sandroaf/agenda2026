@@ -53,8 +53,9 @@ class TipoContatosController extends Controller
     public function show(string $id)
     {
         $tipoContato = TipoContato::findOrFail($id);
+        $contatos = $tipoContato->contatos; // Carrega os contatos relacionados ao tipo de contato
 
-        return view('tipoContatos.show', compact('tipoContato'));
+        return view('tipoContatos.show', compact('tipoContato', 'contatos'));
     }
 
     /**

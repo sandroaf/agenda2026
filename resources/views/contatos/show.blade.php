@@ -11,6 +11,7 @@
                 <div class="p-6 text-gray-900">
                 <ul>
                     <li>ID: {{ $contato->id }}</li>
+                    <li></li>Tipo de Contato: {{ $contato->tipoContato ? $contato->tipoContato->nome : 'N/A' }}</li>
                     <li>Nome: {{ $contato->nome }}</li>
                     <li>Email: {{ $contato->email }}</li>
                     <li>Telefone: {{ $contato->telefone }}</li>

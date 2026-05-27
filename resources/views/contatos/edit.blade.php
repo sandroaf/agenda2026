@@ -12,6 +12,16 @@
                     <form action="{{ route('contatos.update', $contato->id) }}" method="POST">
                         @csrf
                         @method('PUT')
+                        <label for="tipo_contato_id">Tipo de Contato:</label>
+                        <select id="tipo_contato_id" name="tipo_contato_id">
+                            <option value="">Selecione um tipo de contato</option>
+                            @foreach($tipoContatos as $tipoContato)
+                                <option value="{{ $tipoContato->id }}" {{ $contato->tipo_contato_id == $tipoContato->id ? 'selected' : '' }}>
+                                    {{ $tipoContato->id }} - {{ $tipoContato->nome }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <br><br>
                         <label for="nome">Nome:</label>
                         <input type="text" id="nome" name="nome" value="{{ $contato->nome }}" required><br><br>
 

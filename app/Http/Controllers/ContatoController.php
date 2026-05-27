@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Contato;
+use App\Models\TipoContato;
 
 class ContatoController extends Controller
 {
@@ -22,7 +23,8 @@ class ContatoController extends Controller
      */
     public function create()
     {
-        return view('contatos.create');
+        $tipoContatos = TipoContato::all();
+        return view('contatos.create', compact('tipoContatos'));
     }
 
     /**
@@ -42,6 +44,7 @@ class ContatoController extends Controller
         $contato->telefone = $request->input('telefone');
         $contato->cidade = $request->input('cidade');
         $contato->estado = $request->input('estado');
+        $contato->tipo_contato_id = $request->input('tipo_contato_id');
         if ($contato->save()) {
             return redirect()->route('contatos.index')->with('success', 'Contato criado com sucesso.');
         } else {
@@ -55,8 +58,9 @@ class ContatoController extends Controller
     public function show(string $id)
     {
         $contato = Contato::findOrFail($id);
+        $tipoContato = TipoContato::find($contato->tipo_contato_id, ['nome']);
 
-        return view('contatos.show', compact('contato'));
+        return view('contatos.show', compact('contato', 'tipoContato'));
     }
 
     /**
@@ -65,8 +69,9 @@ class ContatoController extends Controller
     public function edit(string $id)
     {
         $contato = Contato::findOrFail($id);
+        $tipoContatos = TipoContato::all();
 
-        return view('contatos.edit', compact('contato'));
+        return view('contatos.edit', compact('contato', 'tipoContatos'));
     }
 
     /**
@@ -86,6 +91,7 @@ class ContatoController extends Controller
         $contato->telefone = $request->input('telefone');
         $contato->cidade = $request->input('cidade');
         $contato->estado = $request->input('estado');
+        $contato->tipo_contato_id = $request->input('tipo_contato_id');
         if ($contato->save()) {
             return redirect()->route('contatos.index')->with('success', 'Contato atualizado com sucesso.');
         } else {

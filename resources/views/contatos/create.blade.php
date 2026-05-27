@@ -12,6 +12,13 @@
                 <div>
                     <form action="{{ route('contatos.store') }}" method="POST">
                         @csrf
+                        <label for="tipo_contato_id">Tipo de Contato:</label>
+                        <select id="tipo_contato_id" name="tipo_contato_id">
+                            <option value="">Selecione um tipo de contato</option>
+                            @foreach($tipoContatos as $tipoContato)
+                                <option value="{{ $tipoContato->id }}">{{ $tipoContato->id }} -  {{ $tipoContato->nome }}</option>
+                            @endforeach
+                        </select><br><br>
                         <label for="nome">Nome:</label>
                         <input type="text" id="nome" name="nome" required><br><br>
 

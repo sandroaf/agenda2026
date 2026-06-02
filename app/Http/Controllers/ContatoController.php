@@ -13,7 +13,7 @@ class ContatoController extends Controller
      */
     public function index()
     {
-        $contatos = Contato::all();
+        $contatos = Contato::paginate(10);
 
         return view('contatos.index', compact('contatos'));
     }
@@ -25,6 +25,18 @@ class ContatoController extends Controller
     {
         $tipoContatos = TipoContato::all();
         return view('contatos.create', compact('tipoContatos'));
+    }
+
+    public function search(Request $request)
+    {
+        $q = $request->input('q');
+        $contatos = Contato::where('nome', 'LIKE', "%$q%")
+            ->orWhere('email', 'LIKE', "%$q%")
+            ->orWhere('telefone', 'LIKE', "%$q%")
+            ->orWhere('cidade', 'LIKE', "%$q%")
+            ->orWhere('estado', 'LIKE', "%$q%")
+            ->paginate(10);
+        return view('contatos.index', compact('contatos'));
     }
 
     /**

@@ -18,6 +18,10 @@
                 <div class="p-6 text-gray-900">
                     <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
                         <p class="text-sm text-gray-600">Gerencie os contatos cadastrados.</p>
+                        <form action="{{ route('contatos.search') }}" method="GET" class="flex items-center gap-2">
+                            <input type="text" name="q" placeholder="Buscar contatos..." class="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <button type="submit" class="inline-flex items-center rounded-md border border-blue-600 bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:border-blue-700 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"><img src="{{ asset('image/lupa.png')}}" alt="Buscar" class="h-5 w-5"></button>
+                        </form>
                         <a href="{{ route('contatos.create') }}" class="inline-flex items-center rounded-md border border-green-600 bg-green-600 px-4 py-2 text-sm font-semibold text-white transition hover:border-green-700 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">Novo Contato</a>
                     </div>
 
@@ -75,6 +79,7 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                    {{ $contatos->links('pagination::tailwind') }} <!-- Paginação usando Tailwind CSS -->
                                 </tbody>
                             </table>
                         </div>

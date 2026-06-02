@@ -6,8 +6,11 @@ use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\TipoContatosController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
+
+Route::get('/contatos/search', [ContatoController::class, 'search'])->middleware(['auth','verified'])->name('contatos.search');
+
 
 Route::resource('contatos', ContatoController::class)->middleware(['auth','verified'])->names([
     'index' => 'contatos.index',

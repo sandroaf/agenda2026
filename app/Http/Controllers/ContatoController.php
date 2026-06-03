@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Contato;
 use App\Models\TipoContato;
+use Illuminate\Support\Facades\Storage;
 
 class ContatoController extends Controller
 {
@@ -57,6 +58,13 @@ class ContatoController extends Controller
         $contato->cidade = $request->input('cidade');
         $contato->estado = $request->input('estado');
         $contato->tipo_contato_id = $request->input('tipo_contato_id');
+        if ($request->hasFile('foto')) {
+            $contato->foto = $request->file('foto')->store('fotos', 'public');
+
+        } else {
+            $contato->foto = null;
+        }
+
         if ($contato->save()) {
             return redirect()->route('contatos.index')->with('success', 'Contato criado com sucesso.');
         } else {
@@ -104,6 +112,9 @@ class ContatoController extends Controller
         $contato->cidade = $request->input('cidade');
         $contato->estado = $request->input('estado');
         $contato->tipo_contato_id = $request->input('tipo_contato_id');
+        if ($request->hasFile('foto')) {
+            $contato->foto = $request->file('foto')->store('fotos', 'public');
+        }
         if ($contato->save()) {
             return redirect()->route('contatos.index')->with('success', 'Contato atualizado com sucesso.');
         } else {
@@ -118,6 +129,9 @@ class ContatoController extends Controller
     {
         $contato = Contato::findOrFail($id);
         if ($contato->delete()) {
+            if ($contato->foto) {
+                Storage::disk('public')->delete($contato->foto);
+            }
             return redirect()->route('contatos.index')->with('success', 'Contato excluído com sucesso.');
         } else {
             return redirect()->route('contatos.index')->with('error', 'Erro ao excluir contato. Tente novamente.');

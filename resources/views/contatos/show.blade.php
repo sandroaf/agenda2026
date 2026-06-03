@@ -40,6 +40,15 @@
                                     <dt class="text-sm font-medium text-gray-500">Estado</dt>
                                     <dd class="text-sm text-gray-900 sm:col-span-2">{{ $contato->estado ?: '-' }}</dd>
                                 </div>
+                                <div class="grid grid-cols-1 gap-2 px-4 py-3 sm:grid-cols-3 sm:gap-4">
+                                    <dt class="text-sm font-medium text-gray-500">Foto</dt>
+                                    <dd class="text-sm text-gray-900 sm:col-span-2">
+                                        @if ($contato->foto)
+                                            <img src="{{ asset('storage/' . $contato->foto) }}" alt="Foto de {{ $contato->nome }}" class="h-32 w-32 object-cover rounded-md">
+                                        @else
+                                            <span class="text-gray-500">Sem foto</span>
+                                        @endif
+                                    </dd>
                             </dl>
                         </div>
 

@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="mx-auto max-w-3xl">
-                        <form action="{{ route('contatos.update', $contato->id) }}" method="POST" class="space-y-6">
+                        <form action="{{ route('contatos.update', $contato->id) }}" method="POST" class="space-y-6" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -50,6 +50,17 @@
                                 <div class="space-y-1">
                                     <label for="estado" class="block text-sm font-medium text-gray-700">Estado</label>
                                     <input type="text" id="estado" name="estado" value="{{ $contato->estado }}" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                </div>
+                                <div class="space-y-1 md:col-span-2">
+
+                                    <label for="foto" class="block text-sm font-medium text-gray-700">Foto</label>
+                                    <input type="file" id="foto" name="foto" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                    @if ($contato->foto)
+                                        <p class="mt-2 text-sm text-gray-500">Foto atual:</p>
+                                        <img src="{{ asset('storage/' . $contato->foto) }}" alt="Foto de {{ $contato->nome }}" class="h-32 w-32 object-cover rounded-md">
+                                    @else
+                                        <p class="mt-2 text-sm text-gray-500">Sem foto</p>
+                                    @endif
                                 </div>
                             </div>
 

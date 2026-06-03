@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="mx-auto max-w-3xl">
-                        <form action="{{ route('contatos.store') }}" method="POST" class="space-y-6">
+                        <form action="{{ route('contatos.store') }}" method="POST" class="space-y-6" enctype="multipart/form-data">
                             @csrf
 
                             <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
@@ -48,6 +48,12 @@
                                     <label for="estado" class="block text-sm font-medium text-gray-700">Estado</label>
                                     <input type="text" id="estado" name="estado" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                 </div>
+
+                                <div class="space-y-1 md:col-span-2">
+                                    <label for="foto" class="block text-sm font-medium text-gray-700">Foto</label>
+                                    <input type="file" id="foto" name="foto" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                </div>
+
                             </div>
 
                             <div class="flex flex-wrap items-center gap-3 pt-2">

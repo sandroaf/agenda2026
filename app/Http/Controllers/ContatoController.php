@@ -14,7 +14,7 @@ class ContatoController extends Controller
      */
     public function index()
     {
-        $contatos = Contato::paginate(10);
+        $contatos = Contato::query()->paginate(10);
 
         return view('contatos.index', compact('contatos'));
     }
@@ -112,6 +112,9 @@ class ContatoController extends Controller
         $contato->cidade = $request->input('cidade');
         $contato->estado = $request->input('estado');
         $contato->tipo_contato_id = $request->input('tipo_contato_id');
+        if ($contato->foto && $request->hasFile('foto')) {
+            Storage::disk('public')->delete($contato->foto);
+        }
         if ($request->hasFile('foto')) {
             $contato->foto = $request->file('foto')->store('fotos', 'public');
         }

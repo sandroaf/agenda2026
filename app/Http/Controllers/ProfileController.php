@@ -18,6 +18,7 @@ class ProfileController extends Controller
     {
         return view('profile.edit', [
             'user' => $request->user(),
+            'tokens' => $request->user()->tokens,
         ]);
     }
 
@@ -56,5 +57,25 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function createToken(Request $request): RedirectResponse
+    {
+        $tokenName = $request->input('name', 'API Token');
+        $token = $request->user()->createToken($tokenName);
+
+        return Redirect::route('profile.edit')->with('status', 'Token criado com sucesso: ' . $token->plainTextToken);
+    }
+
+    public function destroyToken(Request $request, $tokenId): RedirectResponse
+    {
+        $token = $request->user()->tokens()->where('id', $tokenId)->first();
+
+        if ($token) {
+            $token->delete();
+            return Redirect::route('profile.edit')->with('status', 'Token revogado com sucesso');
+        }
+
+        return Redirect::route('profile.edit')->with('status', 'Token não encontrado');
     }
 }

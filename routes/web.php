@@ -40,6 +40,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/profile/tokens', [ProfileController::class, 'createToken'])->name('profile.tokens.store');
+    Route::delete('/profile/tokens/{token}', [ProfileController::class, 'destroyToken'])->name('profile.tokens.destroy');
 });
 
 require __DIR__.'/auth.php';

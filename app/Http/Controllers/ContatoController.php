@@ -31,11 +31,13 @@ class ContatoController extends Controller
     public function search(Request $request)
     {
         $q = $request->input('q');
-        $contatos = Contato::where('nome', 'LIKE', "%$q%")
-            ->orWhere('email', 'LIKE', "%$q%")
-            ->orWhere('telefone', 'LIKE', "%$q%")
-            ->orWhere('cidade', 'LIKE', "%$q%")
-            ->orWhere('estado', 'LIKE', "%$q%")
+        $contatos = Contato::all()->where($q, function ($query, $q) {
+                $query->where('nome', 'LIKE', "%$q%")
+                    ->orWhere('email', 'LIKE', "%$q%")
+                    ->orWhere('telefone', 'LIKE', "%$q%")
+                    ->orWhere('cidade', 'LIKE', "%$q%")
+                    ->orWhere('estado', 'LIKE', "%$q%");
+            })
             ->paginate(10);
         return view('contatos.index', compact('contatos'));
     }
@@ -139,5 +141,17 @@ class ContatoController extends Controller
         } else {
             return redirect()->route('contatos.index')->with('error', 'Erro ao excluir contato. Tente novamente.');
         }
+    }
+
+    public function apiIndex()
+    {
+        $contatos = Contato::all();
+        return response()->json($contatos);
+    }
+
+    public function apiShow($id)
+    {
+        $contato = Contato::findOrFail($id);
+        return response()->json($contato);
     }
 }
